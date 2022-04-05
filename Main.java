@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-class run extends JFrame{
+class run extends JFrame {
 
     private final JPanel loginPage, createNewUserPage,
             forgotPasswordPage, welcomePage, contentFrame;
@@ -16,177 +16,192 @@ class run extends JFrame{
     private final CardLayout cardLayout = new CardLayout();
     private final BorderLayout borderLayout = new BorderLayout();
 
-        public run () {
-            super("Login Page");
-            // Pages
-            loginPage = new JPanel(borderLayout);
-            createNewUserPage = new JPanel(borderLayout);
-            forgotPasswordPage = new JPanel(borderLayout);
-            welcomePage = new JPanel(borderLayout);
-            contentFrame = new JPanel(cardLayout);
+    public run() {
+        super("Login Page");
+        // Pages
+        loginPage = new JPanel(borderLayout);
+        createNewUserPage = new JPanel(borderLayout);
+        forgotPasswordPage = new JPanel(borderLayout);
+        welcomePage = new JPanel(borderLayout);
+        contentFrame = new JPanel(cardLayout);
 
-            // Buttons
-            loginButton = new JButton("Login");
-            forgotPasswordButton = new JButton("forgot password");
-            createNewUserButton = new JButton("create a new account");
-            cancelButton = new JButton("Cancel");
-            OKBUTTON = new JButton("OK");
-            SENDEMAILBUTTON = new JButton("Send email");
+        // Buttons
+        loginButton = new JButton("Login");
+        forgotPasswordButton = new JButton("forgot password");
+        createNewUserButton = new JButton("create a new account");
+        cancelButton = new JButton("Cancel");
+        OKBUTTON = new JButton("OK");
+        SENDEMAILBUTTON = new JButton("Send email");
 
-            // Labels
-            userNameLabel = new JLabel("Username");
-            passwordLabel = new JLabel("Password");
-            EMAILLABEL = new JLabel("Enter Email");
-            NEWUSERLABEL = new JLabel("Enter Username");
-            CREATEPASSWORDLABEL = new JLabel("Enter Password");
-            CONFIRMPASSWORDLABEL = new JLabel("Confirm Password");
-            EMAILLABELFP = new JLabel("Enter your email");
-            USERNAMELABELFP = new JLabel("Enter your username");
-            welcomeLabel = new JLabel("Welcome");
+        // Labels
+        userNameLabel = new JLabel("Username");
+        passwordLabel = new JLabel("Password");
+        EMAILLABEL = new JLabel("Enter Email");
+        NEWUSERLABEL = new JLabel("Enter Username");
+        CREATEPASSWORDLABEL = new JLabel("Enter Password");
+        CONFIRMPASSWORDLABEL = new JLabel("Confirm Password");
+        EMAILLABELFP = new JLabel("Enter your email");
+        USERNAMELABELFP = new JLabel("Enter your username");
+        welcomeLabel = new JLabel("Welcome");
 
-            // Fields
-            userNameField = new JTextField(50);
-            NEWUSERNAMEFIELD = new JTextField(50);
-            NEWEMAILFIELD = new JTextField(50);
-            CHECKEMAILFIELDFP = new JTextField(50);
-            USERNAMEFIELDFP = new JTextField(50);
+        // Fields
+        userNameField = new JTextField(50);
+        NEWUSERNAMEFIELD = new JTextField(50);
+        NEWEMAILFIELD = new JTextField(50);
+        CHECKEMAILFIELDFP = new JTextField(50);
+        USERNAMEFIELDFP = new JTextField(50);
 
-            // Password Fields
-            passwordField = new JPasswordField(50);
-            CREATEPASSWORDFIELD = new JPasswordField(50);
-            CONFIRMPASSWORDFIELD = new JPasswordField(50);
+        // Password Fields
+        passwordField = new JPasswordField(50);
+        CREATEPASSWORDFIELD = new JPasswordField(50);
+        CONFIRMPASSWORDFIELD = new JPasswordField(50);
 
-            // Page Colors
-            loginPage.setBackground(Color.green);
-            createNewUserPage.setBackground(Color.magenta);
-            forgotPasswordPage.setBackground(Color.cyan);
-            welcomePage.setBackground(Color.GRAY);
+        // Page Colors
+        loginPage.setBackground(Color.green);
+        createNewUserPage.setBackground(Color.magenta);
+        forgotPasswordPage.setBackground(Color.cyan);
+        welcomePage.setBackground(Color.GRAY);
 
-            createNewUserButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(contentFrame, "createNewUserPage");
+        createNewUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(contentFrame, "createNewUserPage");
 
+            }
+        });
+
+        OKBUTTON.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(contentFrame, "loginPage");
+                try {
+                    registerUser();
+                } catch (SQLException ex) {
+
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
                 }
-            });
+            }
+        });
 
-            OKBUTTON.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(contentFrame, "loginPage");
-                    try {
-                        registerUser();
-                    } catch (SQLException ex) {
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(contentFrame, "loginPage");
+            }
+        });
 
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
+        forgotPasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(contentFrame, "forgotPasswordPage");
+            }
+        });
+
+        SENDEMAILBUTTON.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(contentFrame, "loginPage");
+            }
+        });
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    verifyLogin();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
-            });
+            }
+        });
 
-            cancelButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(contentFrame, "loginPage");
-                }
-            });
+        // login page
+        loginPage.add(loginButton);
+        loginPage.add(createNewUserButton);
+        loginPage.add(userNameLabel);
+        loginPage.add(passwordLabel);
+        loginPage.add(userNameField);
+        loginPage.add(passwordField);
+        loginPage.add(forgotPasswordButton);
+        forgotPasswordButton.setBounds(130, 240, 180, 20);
+        loginButton.setBounds(170, 210, 100, 20);
+        createNewUserButton.setBounds(90, 270, 250, 20);
+        userNameLabel.setBounds(100, 120, 100, 20);
+        passwordLabel.setBounds(100, 170, 100, 20);
+        userNameField.setBounds(170, 120, 100, 20);
+        passwordField.setBounds(170, 170, 100, 20);
 
-            forgotPasswordButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(contentFrame, "forgotPasswordPage");
-                }
-            });
+        // NEW USER PAGE
+        createNewUserPage.add(NEWUSERLABEL);
+        createNewUserPage.add(CREATEPASSWORDLABEL);
+        createNewUserPage.add(EMAILLABEL);
+        createNewUserPage.add(CONFIRMPASSWORDLABEL);
+        createNewUserPage.add(NEWUSERNAMEFIELD);
+        createNewUserPage.add(NEWEMAILFIELD);
+        createNewUserPage.add(CREATEPASSWORDFIELD);
+        createNewUserPage.add(CONFIRMPASSWORDFIELD);
+        createNewUserPage.add(cancelButton);
+        createNewUserPage.add(OKBUTTON);
 
-            SENDEMAILBUTTON.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(contentFrame, "loginPage");
-                }
-            });
+        OKBUTTON.setBounds(200, 260, 100, 20);
+        cancelButton.setBounds(80, 260, 100, 20);
+        NEWUSERLABEL.setBounds(85, 140, 100, 20);
+        EMAILLABEL.setBounds(100, 170, 180, 20);
+        CREATEPASSWORDLABEL.setBounds(90, 200, 100, 20);
+        CONFIRMPASSWORDLABEL.setBounds(80, 230, 200, 20);
+        NEWUSERNAMEFIELD.setBounds(200, 140, 100, 20);
+        NEWEMAILFIELD.setBounds(200, 170, 100, 20);
+        CREATEPASSWORDFIELD.setBounds(200, 200, 100, 20);
+        CONFIRMPASSWORDFIELD.setBounds(200, 230, 100, 20);
 
-            loginButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+        //forgot password page
+        forgotPasswordPage.add(CHECKEMAILFIELDFP);
+        forgotPasswordPage.add(EMAILLABELFP);
+        forgotPasswordPage.add(USERNAMELABELFP);
+        forgotPasswordPage.add(USERNAMEFIELDFP);
+        forgotPasswordPage.add(SENDEMAILBUTTON);
 
-                    try {
-                         verifyLogin();
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            });
+        CHECKEMAILFIELDFP.setBounds(200, 150, 100, 20);
+        EMAILLABELFP.setBounds(80, 150, 100, 20);
+        USERNAMEFIELDFP.setBounds(200, 110, 100, 20);
+        USERNAMELABELFP.setBounds(70, 110, 150, 20);
+        SENDEMAILBUTTON.setBounds(180, 200, 100, 20);
 
-            // login page
-            loginPage.add(loginButton);
-            loginPage.add(createNewUserButton);
-            loginPage.add(userNameLabel);
-            loginPage.add(passwordLabel);
-            loginPage.add(userNameField);
-            loginPage.add(passwordField);
-            loginPage.add(forgotPasswordButton);
-            forgotPasswordButton.setBounds(130, 240, 180, 20);
-            loginButton.setBounds(170, 210, 100, 20);
-            createNewUserButton.setBounds(90, 270, 250, 20);
-            userNameLabel.setBounds(100, 120, 100, 20);
-            passwordLabel.setBounds(100, 170, 100, 20);
-            userNameField.setBounds(170, 120, 100, 20);
-            passwordField.setBounds(170, 170, 100, 20);
 
-            // NEW USER PAGE
-            createNewUserPage.add(NEWUSERLABEL);
-            createNewUserPage.add(CREATEPASSWORDLABEL);
-            createNewUserPage.add(EMAILLABEL);
-            createNewUserPage.add(CONFIRMPASSWORDLABEL);
-            createNewUserPage.add(NEWUSERNAMEFIELD);
-            createNewUserPage.add(NEWEMAILFIELD);
-            createNewUserPage.add(CREATEPASSWORDFIELD);
-            createNewUserPage.add(CONFIRMPASSWORDFIELD);
-            createNewUserPage.add(cancelButton);
-            createNewUserPage.add(OKBUTTON);
+        //WelcomePage
+        welcomePage.add(welcomeLabel);
 
-            OKBUTTON.setBounds(200, 260, 100, 20);
-            cancelButton.setBounds(80, 260, 100, 20);
-            NEWUSERLABEL.setBounds(85, 140, 100, 20);
-            EMAILLABEL.setBounds(100, 170, 180, 20);
-            CREATEPASSWORDLABEL.setBounds(90, 200, 100, 20);
-            CONFIRMPASSWORDLABEL.setBounds(80,230,200,20);
-            NEWUSERNAMEFIELD.setBounds(200, 140, 100, 20);
-            NEWEMAILFIELD.setBounds(200, 170, 100, 20);
-            CREATEPASSWORDFIELD.setBounds(200, 200, 100, 20);
-            CONFIRMPASSWORDFIELD.setBounds(200, 230, 100, 20);
+        contentFrame.add("loginPage", loginPage);
+        contentFrame.add("createNewUserPage", createNewUserPage);
+        contentFrame.add("forgotPasswordPage", forgotPasswordPage);
+        contentFrame.add("welcomePage", welcomePage);
 
-            //forgot password page
-            forgotPasswordPage.add(CHECKEMAILFIELDFP);
-            forgotPasswordPage.add(EMAILLABELFP);
-            forgotPasswordPage.add(USERNAMELABELFP);
-            forgotPasswordPage.add(USERNAMEFIELDFP);
-            forgotPasswordPage.add(SENDEMAILBUTTON);
-            forgotPasswordPage.add(cancelButton);
+        contentFrame.setLayout(cardLayout);
 
-            CHECKEMAILFIELDFP.setBounds(200,150,100,20);
-            EMAILLABELFP.setBounds(80, 150,100,20);
-            USERNAMEFIELDFP.setBounds(200, 110,100,20);
-            USERNAMELABELFP.setBounds(70, 110,150,20);
-            SENDEMAILBUTTON.setBounds(210,200,100,20);
-            cancelButton.setBounds(90,200,100,20);
+        this.setContentPane(contentFrame);
+        cardLayout.show(contentFrame, "loginPage");
 
-            //WelcomePage
-            welcomePage.add(welcomeLabel);
+    }
 
-            contentFrame.add("loginPage", loginPage);
-            contentFrame.add("createNewUserPage", createNewUserPage);
-            contentFrame.add("forgotPasswordPage", forgotPasswordPage);
-            contentFrame.add("welcomePage", welcomePage);
+    public void game() {
 
-            contentFrame.setLayout(cardLayout);
+        JFrame wind = new JFrame("RedBall/GamePinfo");
+        Redball g = new Redball();
+        wind.add(g);
+        wind.pack();
+        wind.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        wind.setLocationRelativeTo(null);
+        wind.setVisible(true);
+        wind.addMouseMotionListener(g);
 
-            this.setContentPane(contentFrame);
-            cardLayout.show(contentFrame, "loginPage");
+        Timer tt = new Timer(17, g);
+        tt.start();
+    }
 
-        }
 
     public void verifyLogin() throws ClassNotFoundException, SQLException {
         String username = userNameField.getText();
@@ -216,7 +231,7 @@ class run extends JFrame{
                             "Login Successful!",
                             "",
                             JOptionPane.PLAIN_MESSAGE);
-                    cardLayout.show(contentFrame, "welcomePage");
+                    game();
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "Retry password",
@@ -258,27 +273,28 @@ class run extends JFrame{
             return;
         }
         addUserToDatabase();
+
     }
 
-        public void addUserToDatabase() throws ClassNotFoundException, SQLException {
-            String username = NEWUSERNAMEFIELD.getText();
-            String email = NEWEMAILFIELD.getText();
-            String password1 = String.valueOf(CREATEPASSWORDFIELD.getPassword());
+    public void addUserToDatabase() throws ClassNotFoundException, SQLException {
+        String username = NEWUSERNAMEFIELD.getText();
+        String email = NEWEMAILFIELD.getText();
+        String password1 = String.valueOf(CREATEPASSWORDFIELD.getPassword());
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/logindata", "root", "1234");
-            System.out.println("Connection to Database logindata(users) Successful");
-            //Connection to Database Successful
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/logindata", "root", "1234");
+        System.out.println("Connection to Database logindata(users) Successful");
+        //Connection to Database Successful
 
-            String sql = "INSERT INTO users (UserName, EmaiL, PassWord1)" +
-                    " VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, password1);
-            preparedStatement.executeUpdate();
-            con.close();
-        }
+        String sql = "INSERT INTO users (UserName, EmaiL, PassWord1)" +
+                " VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, email);
+        preparedStatement.setString(3, password1);
+        preparedStatement.executeUpdate();
+        con.close();
+    }
 
     public static void main(String[] args) {
         run r = new run();
