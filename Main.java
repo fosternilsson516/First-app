@@ -164,12 +164,14 @@ class run extends JFrame {
         forgotPasswordPage.add(USERNAMELABELFP);
         forgotPasswordPage.add(USERNAMEFIELDFP);
         forgotPasswordPage.add(SENDEMAILBUTTON);
+        forgotPasswordPage.add(cancelButton);
 
         CHECKEMAILFIELDFP.setBounds(200, 150, 100, 20);
         EMAILLABELFP.setBounds(80, 150, 100, 20);
         USERNAMEFIELDFP.setBounds(200, 110, 100, 20);
         USERNAMELABELFP.setBounds(70, 110, 150, 20);
-        SENDEMAILBUTTON.setBounds(180, 200, 100, 20);
+        SENDEMAILBUTTON.setBounds(210, 200, 100, 20);
+        cancelButton.setBounds(90, 200, 100, 20);
 
 
         //WelcomePage
