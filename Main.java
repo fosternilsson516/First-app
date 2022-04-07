@@ -32,7 +32,7 @@ class run extends JFrame {
         loginPage = new JPanel(borderLayout);
         createNewUserPage = new JPanel(borderLayout);
         forgotPasswordPage = new JPanel(borderLayout);
-        launchPage = new JPanel(borderLayout);
+        launchPage = new JPanel();
         contentFrame = new JPanel(cardLayout);
 
         //images
@@ -47,7 +47,7 @@ class run extends JFrame {
         cancelButton = new JButton("Cancel");
         OKBUTTON = new JButton("OK");
         SENDEMAILBUTTON = new JButton("Send email");
-        SoloPongButton = new JButton("Solo Pong");
+        SoloPongButton = new JButton("Solo Pong!");
 
         // Labels
         userNameLabel = new JLabel("Username");
@@ -76,13 +76,11 @@ class run extends JFrame {
         loginPage.setBackground(Color.GREEN);
         createNewUserPage.setBackground(Color.magenta);
         forgotPasswordPage.setBackground(Color.cyan);
-        launchPage.setBackground(Color.GRAY);
 
         createNewUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(contentFrame, "createNewUserPage");
-
             }
         });
 
@@ -200,6 +198,8 @@ class run extends JFrame {
         //launchPage
         launchPage.add(launchLabel);
         launchPage.add(SoloPongButton);
+        launchLabel.setBounds(210, 200, 100, 20);
+        SoloPongButton.setBounds(210, 230, 100,20);
 
 
 
