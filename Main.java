@@ -2,19 +2,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.sql.*;
 
 class run extends JFrame {
 
     private final JPanel loginPage, createNewUserPage,
-            forgotPasswordPage, welcomePage, contentFrame;
-    private final JButton loginButton, forgotPasswordButton, cancelButton, createNewUserButton, OKBUTTON, SENDEMAILBUTTON;
-    private final JLabel userNameLabel, passwordLabel, EMAILLABEL, NEWUSERLABEL, CREATEPASSWORDLABEL,
-            CONFIRMPASSWORDLABEL, EMAILLABELFP, USERNAMELABELFP, welcomeLabel;
-    private final JTextField userNameField, NEWUSERNAMEFIELD, NEWEMAILFIELD, CHECKEMAILFIELDFP, USERNAMEFIELDFP;
+            forgotPasswordPage, launchPage, contentFrame;
+
+    private final JButton loginButton, forgotPasswordButton, cancelButton,
+            createNewUserButton, OKBUTTON, SENDEMAILBUTTON, SoloPongButton;
+
+    private final JLabel imageLabel, userNameLabel, passwordLabel,
+            EMAILLABEL, NEWUSERLABEL, CREATEPASSWORDLABEL,
+            CONFIRMPASSWORDLABEL, EMAILLABELFP, USERNAMELABELFP, launchLabel;
+
+    private final JTextField userNameField, NEWUSERNAMEFIELD, NEWEMAILFIELD,
+            CHECKEMAILFIELDFP, USERNAMEFIELDFP;
+
     private final JPasswordField passwordField, CREATEPASSWORDFIELD, CONFIRMPASSWORDFIELD;
     private final CardLayout cardLayout = new CardLayout();
     private final BorderLayout borderLayout = new BorderLayout();
+    private final ImageIcon loginBackround;
 
     public run() {
         super("Login Page");
@@ -22,8 +32,13 @@ class run extends JFrame {
         loginPage = new JPanel(borderLayout);
         createNewUserPage = new JPanel(borderLayout);
         forgotPasswordPage = new JPanel(borderLayout);
-        welcomePage = new JPanel(borderLayout);
+        launchPage = new JPanel(borderLayout);
         contentFrame = new JPanel(cardLayout);
+
+        //images
+        loginBackround = new ImageIcon(getClass().getResource("loginBaccground.jpg"));
+        imageLabel = new JLabel(loginBackround);
+
 
         // Buttons
         loginButton = new JButton("Login");
@@ -32,6 +47,7 @@ class run extends JFrame {
         cancelButton = new JButton("Cancel");
         OKBUTTON = new JButton("OK");
         SENDEMAILBUTTON = new JButton("Send email");
+        SoloPongButton = new JButton("Solo Pong");
 
         // Labels
         userNameLabel = new JLabel("Username");
@@ -42,7 +58,7 @@ class run extends JFrame {
         CONFIRMPASSWORDLABEL = new JLabel("Confirm Password");
         EMAILLABELFP = new JLabel("Enter your email");
         USERNAMELABELFP = new JLabel("Enter your username");
-        welcomeLabel = new JLabel("Welcome");
+        launchLabel = new JLabel("Welcome, Click to start game");
 
         // Fields
         userNameField = new JTextField(50);
@@ -57,10 +73,10 @@ class run extends JFrame {
         CONFIRMPASSWORDFIELD = new JPasswordField(50);
 
         // Page Colors
-        loginPage.setBackground(Color.green);
+        loginPage.setBackground(Color.GREEN);
         createNewUserPage.setBackground(Color.magenta);
         forgotPasswordPage.setBackground(Color.cyan);
-        welcomePage.setBackground(Color.GRAY);
+        launchPage.setBackground(Color.GRAY);
 
         createNewUserButton.addActionListener(new ActionListener() {
             @Override
@@ -119,6 +135,13 @@ class run extends JFrame {
             }
         });
 
+        SoloPongButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game();
+            }
+        });
+
         // login page
         loginPage.add(loginButton);
         loginPage.add(createNewUserButton);
@@ -174,13 +197,16 @@ class run extends JFrame {
         cancelButton.setBounds(90, 200, 100, 20);
 
 
-        //WelcomePage
-        welcomePage.add(welcomeLabel);
+        //launchPage
+        launchPage.add(launchLabel);
+        launchPage.add(SoloPongButton);
+
+
 
         contentFrame.add("loginPage", loginPage);
         contentFrame.add("createNewUserPage", createNewUserPage);
         contentFrame.add("forgotPasswordPage", forgotPasswordPage);
-        contentFrame.add("welcomePage", welcomePage);
+        contentFrame.add("launchPage", launchPage);
 
         contentFrame.setLayout(cardLayout);
 
@@ -233,7 +259,7 @@ class run extends JFrame {
                             "Login Successful!",
                             "",
                             JOptionPane.PLAIN_MESSAGE);
-                    game();
+                    cardLayout.show(contentFrame, "launchPage");
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "Retry password",
