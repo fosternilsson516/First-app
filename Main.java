@@ -9,45 +9,36 @@ import java.sql.*;
 class run extends JFrame {
 
     private final JPanel loginPage, createNewUserPage,
-            forgotPasswordPage, launchPage, contentFrame;
+             launchPage, contentFrame;
 
-    private final JButton loginButton, forgotPasswordButton, cancelButton,
-            createNewUserButton, OKBUTTON, SENDEMAILBUTTON, SoloPongButton;
+    private final JButton loginButton, cancelButton,
+            createNewUserButton, OKBUTTON, SoloPongButton;
 
-    private final JLabel imageLabel, userNameLabel, passwordLabel,
+    private final JLabel userNameLabel, passwordLabel,
             EMAILLABEL, NEWUSERLABEL, CREATEPASSWORDLABEL,
-            CONFIRMPASSWORDLABEL, EMAILLABELFP, USERNAMELABELFP, launchLabel;
+            CONFIRMPASSWORDLABEL, launchLabel, pongLabel;
 
-    private final JTextField userNameField, NEWUSERNAMEFIELD, NEWEMAILFIELD,
-            CHECKEMAILFIELDFP, USERNAMEFIELDFP;
+    private final JTextField userNameField, NEWUSERNAMEFIELD, NEWEMAILFIELD;
 
     private final JPasswordField passwordField, CREATEPASSWORDFIELD, CONFIRMPASSWORDFIELD;
     private final CardLayout cardLayout = new CardLayout();
     private final BorderLayout borderLayout = new BorderLayout();
-    private final ImageIcon loginBackround;
+
 
     public run() {
         super("Login Page");
         // Pages
         loginPage = new JPanel(borderLayout);
         createNewUserPage = new JPanel(borderLayout);
-        forgotPasswordPage = new JPanel(borderLayout);
-        launchPage = new JPanel();
+        launchPage = new JPanel(borderLayout);
         contentFrame = new JPanel(cardLayout);
-
-        //images
-        loginBackround = new ImageIcon(getClass().getResource("loginBaccground.jpg"));
-        imageLabel = new JLabel(loginBackround);
-
 
         // Buttons
         loginButton = new JButton("Login");
-        forgotPasswordButton = new JButton("forgot password");
         createNewUserButton = new JButton("create a new account");
         cancelButton = new JButton("Cancel");
         OKBUTTON = new JButton("OK");
-        SENDEMAILBUTTON = new JButton("Send email");
-        SoloPongButton = new JButton("Solo Pong!");
+        SoloPongButton = new JButton("OK");
 
         // Labels
         userNameLabel = new JLabel("Username");
@@ -56,16 +47,13 @@ class run extends JFrame {
         NEWUSERLABEL = new JLabel("Enter Username");
         CREATEPASSWORDLABEL = new JLabel("Enter Password");
         CONFIRMPASSWORDLABEL = new JLabel("Confirm Password");
-        EMAILLABELFP = new JLabel("Enter your email");
-        USERNAMELABELFP = new JLabel("Enter your username");
         launchLabel = new JLabel("Welcome, Click to start game");
+        pongLabel = new JLabel("Click here to play solo pong");
 
         // Fields
         userNameField = new JTextField(50);
         NEWUSERNAMEFIELD = new JTextField(50);
         NEWEMAILFIELD = new JTextField(50);
-        CHECKEMAILFIELDFP = new JTextField(50);
-        USERNAMEFIELDFP = new JTextField(50);
 
         // Password Fields
         passwordField = new JPasswordField(50);
@@ -75,7 +63,8 @@ class run extends JFrame {
         // Page Colors
         loginPage.setBackground(Color.GREEN);
         createNewUserPage.setBackground(Color.magenta);
-        forgotPasswordPage.setBackground(Color.cyan);
+        launchPage.setBackground(Color.cyan);
+
 
         createNewUserButton.addActionListener(new ActionListener() {
             @Override
@@ -99,20 +88,6 @@ class run extends JFrame {
         });
 
         cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(contentFrame, "loginPage");
-            }
-        });
-
-        forgotPasswordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(contentFrame, "forgotPasswordPage");
-            }
-        });
-
-        SENDEMAILBUTTON.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(contentFrame, "loginPage");
@@ -147,13 +122,11 @@ class run extends JFrame {
         loginPage.add(passwordLabel);
         loginPage.add(userNameField);
         loginPage.add(passwordField);
-        loginPage.add(forgotPasswordButton);
-        forgotPasswordButton.setBounds(130, 240, 180, 20);
         loginButton.setBounds(170, 210, 100, 20);
-        createNewUserButton.setBounds(90, 270, 250, 20);
-        userNameLabel.setBounds(100, 120, 100, 20);
+        createNewUserButton.setBounds(90, 250, 250, 20);
+        userNameLabel.setBounds(100, 130, 100, 20);
         passwordLabel.setBounds(100, 170, 100, 20);
-        userNameField.setBounds(170, 120, 100, 20);
+        userNameField.setBounds(170, 130, 100, 20);
         passwordField.setBounds(170, 170, 100, 20);
 
         // NEW USER PAGE
@@ -179,33 +152,20 @@ class run extends JFrame {
         CREATEPASSWORDFIELD.setBounds(200, 200, 100, 20);
         CONFIRMPASSWORDFIELD.setBounds(200, 230, 100, 20);
 
-        //forgot password page
-        forgotPasswordPage.add(CHECKEMAILFIELDFP);
-        forgotPasswordPage.add(EMAILLABELFP);
-        forgotPasswordPage.add(USERNAMELABELFP);
-        forgotPasswordPage.add(USERNAMEFIELDFP);
-        forgotPasswordPage.add(SENDEMAILBUTTON);
-        forgotPasswordPage.add(cancelButton);
-
-        CHECKEMAILFIELDFP.setBounds(200, 150, 100, 20);
-        EMAILLABELFP.setBounds(80, 150, 100, 20);
-        USERNAMEFIELDFP.setBounds(200, 110, 100, 20);
-        USERNAMELABELFP.setBounds(70, 110, 150, 20);
-        SENDEMAILBUTTON.setBounds(210, 200, 100, 20);
-        cancelButton.setBounds(90, 200, 100, 20);
-
-
         //launchPage
-        launchPage.add(launchLabel);
         launchPage.add(SoloPongButton);
-        launchLabel.setBounds(210, 200, 100, 20);
-        SoloPongButton.setBounds(210, 230, 100,20);
+        launchPage.add(pongLabel);
+        launchPage.add(launchLabel);
+        pongLabel.setBounds(215,300,250,20);
+        SoloPongButton.setBounds(250, 330, 100,20);
+        launchLabel.setBounds(110, 180, 250, 20);
+
+
 
 
 
         contentFrame.add("loginPage", loginPage);
         contentFrame.add("createNewUserPage", createNewUserPage);
-        contentFrame.add("forgotPasswordPage", forgotPasswordPage);
         contentFrame.add("launchPage", launchPage);
 
         contentFrame.setLayout(cardLayout);
@@ -255,10 +215,6 @@ class run extends JFrame {
 
             while(rs.next()) {
                 if (password.equals(rs.getString("PassWord1"))) {
-                    JOptionPane.showMessageDialog(null,
-                            "Login Successful!",
-                            "",
-                            JOptionPane.PLAIN_MESSAGE);
                     cardLayout.show(contentFrame, "launchPage");
                 } else {
                     JOptionPane.showMessageDialog(null,
@@ -329,5 +285,6 @@ class run extends JFrame {
         r.setVisible(true);
         r.setMinimumSize(new Dimension(420, 420));
         r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        r.setLocationRelativeTo(null);
     }
 }
