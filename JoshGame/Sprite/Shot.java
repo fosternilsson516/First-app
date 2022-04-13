@@ -1,4 +1,6 @@
-package JoshGame;
+package JoshGame.Sprite;
+import JoshGame.Sprite.Sprite;
+
 import javax.swing.ImageIcon;
 
 public class Shot extends Sprite {
